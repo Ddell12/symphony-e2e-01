@@ -25,9 +25,7 @@ if (convexUrl) {
   }
 }
 
-function ConvexClientProvider({ children }: { children: ReactNode }) {
+export function ConvexClientProvider({ children }: { children: ReactNode }) {
   if (!convex) return <>{children}</>;
   return <ConvexProvider client={convex}>{children}</ConvexProvider>;
 }
-
-export { ConvexClientProvider };
