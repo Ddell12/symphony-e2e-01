@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TaskForm } from "@/components/task-form";
+import { TaskFormLazy as TaskForm } from "@/components/task-form-lazy";
 
 export default function Home() {
   return (
