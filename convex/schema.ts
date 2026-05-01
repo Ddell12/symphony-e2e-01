@@ -4,6 +4,5 @@ import { v } from "convex/values";
 export default defineSchema({
   tasks: defineTable({
     title: v.string(),
-    createdAt: v.number(),
   }),
 });
