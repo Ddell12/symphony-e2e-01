@@ -1,8 +1,9 @@
-"use client";
-
 import dynamic from "next/dynamic";
 
 export const TaskFormLazy = dynamic(
   () => import("@/components/task-form").then((m) => m.TaskForm),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <p className="text-sm text-muted-foreground">Loading…</p>,
+  }
 );

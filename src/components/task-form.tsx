@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
-import { api } from "@/../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import { taskFormSchema } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 export function TaskForm() {
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState(false);
   const createTask = useMutation(api.tasks.create);
   const tasks = useQuery(api.tasks.list);
 
@@ -21,8 +22,17 @@ export function TaskForm() {
       return;
     }
     setError(null);
-    await createTask({ title: result.data.title });
-    setTitle("");
+    setIsPending(true);
+    try {
+      await createTask({ title: result.data.title });
+      setTitle("");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to add task. Please try again."
+      );
+    } finally {
+      setIsPending(false);
+    }
   }
 
   return (
@@ -33,9 +43,10 @@ export function TaskForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Task title..."
+            maxLength={120}
             aria-invalid={error ? true : undefined}
           />
-          <Button type="submit">Add Task</Button>
+          <Button type="submit" disabled={isPending}>Add Task</Button>
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
       </form>
