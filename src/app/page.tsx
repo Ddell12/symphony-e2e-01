@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { TaskForm } from "@/components/task-form";
 
 export default function Home() {
   return (
@@ -58,6 +59,9 @@ export default function Home() {
           >
             Documentation
           </a>
+        </div>
+        <div className="w-full max-w-md">
+          <TaskForm />
         </div>
       </main>
     </div>
