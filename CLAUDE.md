@@ -1,6 +1,6 @@
 # symphony-e2e-01
 
-Next.js 16 app (App Router, TypeScript, Tailwind v4, Turbopack) with shadcn/ui (slate base), Convex for the backend, Zod for schema validation, and Bun as the package manager and runtime. Hosted at https://github.com/Ddell12/symphony-e2e-01. **Convex backend is not yet provisioned** — run `bunx convex dev` to complete setup before using any Convex functions.
+Next.js 16 app (App Router, TypeScript, Tailwind v4, Turbopack) with shadcn/ui (slate base), Convex for the backend, Zod for schema validation, and Bun as the package manager and runtime. Hosted at https://github.com/Ddell12/symphony-e2e-01.
 
 ## Commands
 
@@ -27,9 +27,10 @@ public/           # Static assets
 
 1. **Type safety** — strict TypeScript throughout; no `any` without an explicit justification comment.
 2. **Server components first** — default to React Server Components; add `"use client"` only when interactivity or browser APIs require it.
-3. **Validate at boundaries** — all user input and external data must pass through a Zod schema before use.
-4. **shadcn primitives** — use installed shadcn/ui components as the base for all UI; do not hand-roll buttons, dialogs, or form elements.
-5. **Never commit Convex deployment URLs** — `NEXT_PUBLIC_CONVEX_URL` and any Convex env values belong in `.env.local` (gitignored).
+3. **Validate at boundaries (Next.js)** — all user input at Next.js API routes and Server Actions must pass through a Zod schema before use.
+4. **Validate at boundaries (Convex)** — Convex function arguments must be validated with Convex's `v` validators (`convex/values`); do not use Zod inside Convex handlers.
+5. **shadcn primitives** — use installed shadcn/ui components as the base for all UI; do not hand-roll buttons, dialogs, or form elements.
+6. **Never commit Convex generated or deployment files** — `convex/_generated/` is auto-generated at dev time and is gitignored; do not commit it. `NEXT_PUBLIC_CONVEX_URL` and any Convex env values belong in `.env.local` (gitignored).
 
 ## Symphony E2E Target
 
