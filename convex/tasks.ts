@@ -4,7 +4,7 @@ import { v, ConvexError } from "convex/values";
 export const list = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("tasks").order("desc").collect();
+    return ctx.db.query("tasks").order("desc").collect();
   },
 });
 
@@ -14,7 +14,7 @@ export const create = mutation({
     if (args.title.trim().length === 0) {
       throw new ConvexError("Title cannot be empty.");
     }
-    return await ctx.db.insert("tasks", {
+    return ctx.db.insert("tasks", {
       title: args.title,
     });
   },
